@@ -1,0 +1,518 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: #f3f2f4;
+    text-decoration: none;
+}
+
+html, body{
+    height: 100%;
+    width: 100%;
+    font-family: "Space Grotesk", sans-serif;
+    background-color: #0f051d;
+
+}
+a{
+    text-decoration: none !important;
+    color: inherit;
+}
+
+$default-gradient: linear-gradient(25deg, #2600fc, #ff00ea);
+
+@mixin text-background-clip() {
+    color: transparent;
+    background: $default-gradient;
+    background-clip: text;
+}
+
+// HEADER
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 2rem 7vw;
+    position: relative;
+    
+    &.fixed{
+        background-color: #0f051d;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        box-shadow: 0 5px 10px #0000005e;
+    }
+    nav{
+
+
+        ul{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+
+            li{
+                list-style: none;
+                padding: 1rem;
+                
+                a{
+                    height: inherit;
+                    width: inherit;
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                    text-decoration: none;
+                    // background-color: #fff;
+                    background-clip: text;
+                    transition: all .3s ease-in-out;
+                    
+                }
+                
+                &:hover a{
+                    @include text-background-clip;
+
+            }
+            }
+        }
+    }
+
+    .social--icons, .tcp{
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .nav_icon{
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        cursor: pointer;
+        z-index: 99999;
+        display: none;
+
+
+        .ham-stick{
+            margin-block: 2px;
+            border-radius: 2px;
+            height: 3px;
+            width: 2rem;
+            background-color: #f3f2f4;
+            transition: transform .3s ease-in-out, opacity .3s ease-in-out;
+            
+            &.open-menu:nth-child(1){
+                transform: translateY(5px) rotate(45deg);
+            }
+            &.open-menu:nth-child(2){
+                transform: scale(0);
+                opacity: 0;
+            }
+            &.open-menu:nth-child(3){
+                transform: translateY(-5px) rotate(-45deg);
+            }
+        }
+    }
+    
+}
+
+@media (max-width: 1000px){
+    header{ 
+        nav{
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            background-color: #0f051d;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: translateY(-100%);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: transform .3s ease-in-out;
+            
+            ul{
+                flex-direction: column;
+
+            }
+
+        }
+        &.active nav{
+            transform: translateY(0);
+            opacity: 1;
+            visibility: initial;
+            pointer-events: auto;
+        }
+        .social--icons{
+            display: none;
+        }
+    
+    }
+
+    .nav_icon{
+        display: initial !important;
+    }
+}
+
+// Hero Section
+
+#hero{
+    max-height: 800px;
+    width: 100%;
+    position: relative;
+    padding: 3rem 7vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1::after,
+    h1::before{
+        content: "";
+        height: 4vw;
+        width: 4vw;
+        position: absolute;
+        top:2%;
+        background-position: center;
+        background-size: cover;
+        animation-name: dance;
+        animation-duration: 4s;
+        animation-timing-function: cubic-bezier(0.42, 0, 0.05, 0.99);
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+    }
+    h1::after{
+        background-image: url(assets/bitcoin.png);
+        left: -2%;
+        
+
+    }
+    h1::before{
+        background-image: url(assets/ethereum.png);
+        right: -2%;
+    }
+
+
+
+    h1{
+        font-size: 7vw;
+        line-height: 1.2;
+        text-align: center;
+        position: relative;
+
+        .gradient--text{
+            display: block;
+            @include text-background-clip;
+        }
+    }
+
+}
+
+
+// Market Updates
+
+#market__updates{
+    padding: 7vw;
+    display: flex;
+    justify-content: stretch;
+    align-items: flex-start;
+    flex-direction: column;
+    position: relative;
+
+    
+    table{
+        height: 100%;
+        width: 100%;
+        border-radius: 20px;
+        overflow: hidden;
+        border-collapse: collapse;
+
+
+        thead tr, tbody tr{
+            th, td{
+                padding-inline: 2vw;
+                padding-block: 1rem;
+                text-align: center;
+                border: none;
+
+        
+                &:first-child{
+                    text-align: start;
+                }
+                &:last-child{
+                    text-align: end;
+                }
+            }
+        }
+
+        thead tr{
+            background-image: $default-gradient;
+
+            th{
+                
+                font-size: 2vw;
+            }
+        }
+        tbody tr{
+            background-color: #f3f2f4;
+            border-bottom: 1px solid #0f051d;
+            position: relative;
+            overflow-y: hidden;
+
+            td{
+                font-size: 1.2vw;
+                color: #0f051d;
+                z-index: 999;
+                transition: color .3s ease-in-out;
+                
+                &.red{
+                    color: red;
+                }
+                &.green{
+                    color: green;
+                }
+            }
+            transition: background-color .3s ease-in-out;
+            &:hover{
+                background-color: #af82ed1b;
+                td{
+
+                    color: #f3f2f4;
+                }
+
+            }
+        }
+        
+    }
+    
+
+    
+    
+
+    .btn-container{
+        width: 100%;
+        padding: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+
+        button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            height: 2rem;
+            width: 2rem;
+            font-size: 1rem;
+            background-color: #f3f2f4;
+            border: none;
+            outline: none;
+            color: #0f051d;
+            cursor: pointer;
+            transition: all .3s ease-in-out;
+
+            &:hover{
+                background-image: $default-gradient;
+                color: #f3f2f4;
+            }
+        }
+
+    }
+
+}
+// Why Us
+#whyUs{
+    padding: 7vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 3vw;
+    position: relative;
+    h1{
+        font-size: 5vw;
+
+        span{
+            @include text-background-clip;
+        }
+    }
+
+    .choose-us__container{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        .choose-us__container-box{
+            display: flex;
+            height: auto;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .box-2{
+            flex-shrink: 1;
+            img{
+                width: 86%;
+            }
+        }
+    }
+    .choose--container-box{
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        width: 100%;
+        background-color: hsla(0, 0, 100, .5);
+        padding: 2rem;
+        border: 1px solid #f3f2f47e;
+        border-radius: 1rem;
+        div{
+            padding: 0;
+        }
+        i{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            line-height: 1.8;
+        }
+
+    }
+}
+
+@media (max-width: 1000px){
+    .choose-us__container{
+        grid-template-columns: auto !important;
+        grid-template-rows: repeat(3, 1fr);
+    }
+}
+
+
+// Join Us
+#joinUs{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-block: 7vw;
+    position: relative;
+
+    img{
+        height: 8vw;
+        width: 8vw;
+        position: absolute;
+        top:50%;
+        &.ethereum--coin{
+            left: 16vw
+        }
+        &.bitcoin--coin{
+            right: 16vw;
+            animation-delay: -2s;
+        }
+
+        animation-name: dance;
+        animation-duration: 4s;
+        animation-timing-function: cubic-bezier(0.42, 0, 0.05, 0.99);
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+
+    }
+    h1{
+        font-size: 7vw;
+        line-height: 1;
+
+        &.gradient--text{
+            @include text-background-clip;
+        }
+    }
+    p{
+        font-size: 1.2rem;
+        margin-block: 1.2rem 4rem;
+    }
+    button{
+        background-image: $default-gradient;
+        border: none;
+        outline: none;
+        border-radius: 5rem;
+        padding: 1.2rem 2.8rem;
+        font-size: 1rem;
+        font-weight: bold;
+        font-family: inherit;
+        cursor: pointer;
+
+        &:hover{
+            font-size: 1.2rem;
+            box-shadow: 0 5px 10px #7b69e25e;
+        }
+    }
+}
+
+@keyframes dance{
+    0%, 100%{
+        transform: translateY(-40%);
+    }
+    50% {
+        transform: translateY(50%);
+    }
+}
+
+
+@media (max-width: 900px){
+    .joinUs img{
+        display: none;
+    }
+}
+
+// Footer
+footer{
+    height: 25vw;
+    background-image: url(assets/footer-bg.png);
+    background-position: 50%;
+    background-size: cover;
+
+    // background-color: #fff;
+    // position: relative;
+    &, .footer-contant{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+
+
+        .footer-social--icons,
+        .footer-tcp{
+            display: flex;
+            align-items: center;
+            gap: 3rem;  
+        }
+        .footer-social--icons{
+            font-size: 2rem;
+    
+        }
+        .footer-tcp{
+            margin-block-start: 1.5rem;
+            font-size: 1.2rem;
+            p{
+                transition: all .3s ease-in-out;
+            }
+            p:hover{
+                @include text-background-clip;
+                cursor: pointer;
+            }
+        }
+    }
+
+}
+
+
